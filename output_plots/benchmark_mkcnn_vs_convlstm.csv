@@ -1,0 +1,3 @@
+Model,Params,ParamMemory,PeakCudaMem,Throughput_samples_per_s
+MKCNN-UNet-LSTM,1636238,6.24 MB,33.74 MB,514.79
+ConvLSTM,161601,631.25 KB,29.25 MB,2020.03
