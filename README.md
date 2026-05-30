@@ -53,12 +53,29 @@ Argument Examples:
 - `--tune`: Start hyperparameter tuning spanning different architectures and kernel sizes.
 - `--benchmark`: Automatically benchmark throughput vs a simpler `ConvLSTM`.
 
-### 3. Visualizations
+### 3. Using Shapefiles
 
-The pipeline will emit a suite of comprehensive plots sequentially into the `output_plots/` directory:
-- **`training_history_physics.png`**: Breakdown of overall validation loss metrics mapped continuously to Physics-Informed bounds.
+The geographic bounds and masking of the output predictions are constrained using shapefiles (`.shp`). By default, the model comes with a standard North-West Himalayas / India shapefile.
+
+- **`--shapefile_path`**: Specifies the absolute or relative path to the `.shp` file to use.
+  - Default: `"NWH_States_Shapefile-20260120T110552Z-3-001/NWH_States_Shapefile/NWH_states.shp"`
+  - Example: `--shapefile_path "/path/to/custom_shapefile.shp"`
+
+The pipeline uses `geopandas` to load this shapefile which overlays realistic geographic boundaries over the plotted `(19, 19)` prediction grids.
+
+### 4. Plotting and Visualizations
+
+The pipeline emits a comprehensive suite of plots during training and evaluation. By default, all visual outputs are saved into the `--output_dir` (which defaults to `output_plots/`).
+
+**Plotting Flags:**
+- **`--output_dir`**: Directory where all plots will be saved. Default: `output_plots/`
+- **`--plot_only`**: Use this flag to strictly generate output plots based on a loaded checkpoint, without initiating a training run.
+
+**Saved Output Structure:**
+When the model executes, it will sequentially save these artifacts into the output directory:
+- **`training_history_physics.png`**: Breakdown of overall validation loss metrics mapped continuously to Physics-Informed bounds over all epochs.
 - **`mkcnn_features/`**: Spatiotemporal visualization of individual kernels masking physical spaces. 
-- **`predictions/`**: Visual layout featuring Input variables, Ground Truth Maps, and Output Predictions rendered explicitly bounded against designated Geospatial representations via India state-level shapefiles (`NWH_states.shp`).
+- **`predictions/`**: Visual layout featuring Input variables, Ground Truth Maps, and Output Predictions rendered explicitly bounded against designated Geospatial representations via the loaded shapefile.
 
 ## Dataset Assumption
 
